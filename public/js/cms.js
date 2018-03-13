@@ -7,7 +7,7 @@ $(document).ready(function() {
   var postCategorySelect = $("#category");
   var postDomainSelect = $("#domain");
 
-postCategorySelect.val("Personal");
+postCategorySelect.val("Infants");
 
 postDomainSelect.val("Art");
   // Adding an event listener for when the form is submitted
@@ -67,7 +67,7 @@ postDomainSelect.val("Art");
   // Submits a new post and brings user to blog page upon completion
   function submitPost(post) {
     $.post("/api/posts", post, function() {
-      window.location.href = "/blog";
+      window.location.href = "/daply";
     });
   }
 
@@ -138,7 +138,7 @@ postDomainSelect.val("Art");
       data: post
     })
       .then(function() {
-        window.location.href = "/blog";
+        window.location.href = "/daply";
       });
   }
 });

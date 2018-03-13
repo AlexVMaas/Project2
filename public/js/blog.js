@@ -41,7 +41,7 @@ $(document).ready(function() {
         displayEmpty(author);
       }
       else {
-        initializeRows();
+        initializeRows(authorId);
       }
     });
   }
@@ -112,29 +112,25 @@ function getCatDomPosts(category, domain) {
   }
 
   // InitializeRows handles appending all of our constructed post HTML inside blogContainer
-  function initializeRows() {
+  function initializeRows(authored) {
+    authored = authorId;
     blogContainer.empty();
     var postsToAdd = [];
     for (var i = 0; i < posts.length; i++) {
-      postsToAdd.push(createNewRow(posts[i]));
+      postsToAdd.push(createNewRow(posts[i], authored));
     }
     blogContainer.append(postsToAdd);
   }
 
   // This function constructs a post's HTML
-  function createNewRow(post) {
+  function createNewRow(post, authored) {
+    authored = authorId;
     var formattedDate = new Date(post.createdAt);
     formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
     var newPostPanel = $("<div>");
     newPostPanel.addClass("panel panel-default");
     var newPostPanelHeading = $("<div>");
     newPostPanelHeading.addClass("panel-heading");
-    var deleteBtn = $("<button>");
-    deleteBtn.text("x");
-    deleteBtn.addClass("delete btn btn-danger");
-    var editBtn = $("<button>");
-    editBtn.text("EDIT");
-    editBtn.addClass("edit btn btn-info");
     var newPostTitle = $("<h2>");
     var newPostDate = $("<small>");
     // var newPostAuthor = $("<h5>");
@@ -160,8 +156,18 @@ function getCatDomPosts(category, domain) {
     newPostBody.text(post.body);
     newPostDate.text(formattedDate);
     newPostTitle.append(newPostDate);
+
+    if (authored) {
+    var deleteBtn = $("<button>");
+    deleteBtn.text("x");
+    deleteBtn.addClass("delete btn btn-danger");
+    var editBtn = $("<button>");
+    editBtn.text("EDIT");
+    editBtn.addClass("edit btn btn-info");
     newPostPanelHeading.append(deleteBtn);
-    newPostPanelHeading.append(editBtn);
+    newPostPanelHeading.append(editBtn);          
+    }    
+
     newPostPanelHeading.append(newPostTitle);
     // newPostPanelHeading.append(newPostAuthor);
     newPostPanelHeading.append(newPostCategory);
@@ -187,7 +193,7 @@ function getCatDomPosts(category, domain) {
       .parent()
       .parent()
       .data("post");
-    window.location.href = "/cms?post_id=" + currentPost.id;
+    window.location.href = "/ams?post_id=" + currentPost.id;
   }
 
   // This function displays a messgae when there are no posts
@@ -200,7 +206,7 @@ function getCatDomPosts(category, domain) {
     blogContainer.empty();
     var messageh2 = $("<h2>");
     messageh2.css({ "text-align": "center", "margin-top": "50px" });
-    messageh2.html("No posts yet" + partial + ", navigate <a href='/cms" + query +
+    messageh2.html("No posts yet" + partial + ", navigate <a href='/ams" + query +
     "'>here</a> in order to get started.");
     blogContainer.append(messageh2);
   }
@@ -209,7 +215,7 @@ function getCatDomPosts(category, domain) {
     blogContainer.empty();
     var messageh2 = $("<h2>");
     messageh2.css({ "text-align": "center", "margin-top": "50px" });
-    messageh2.html("No posts yet for this category, navigate <a href='/cms'>here</a> in order to create a new post.");
+    messageh2.html("No posts yet for this category, navigate <a href='/ams'>here</a> in order to create a new post.");
     blogContainer.append(messageh2);
   }
 
@@ -223,7 +229,7 @@ function getCatDomPosts(category, domain) {
     blogContainer.empty();
     var messageh2 = $("<h2>");
     messageh2.css({ "text-align": "center", "margin-top": "50px" });
-    messageh2.html("No posts yet for this domain, navigate <a href='/cms'>here</a> in order to create a new post.");
+    messageh2.html("No posts yet for this domain, navigate <a href='/ams'>here</a> in order to create a new post.");
     blogContainer.append(messageh2);
   }
 
@@ -245,7 +251,7 @@ function getCatDomPosts(category, domain) {
     blogContainer.empty();
     var messageh2 = $("<h2>");
     messageh2.css({ "text-align": "center", "margin-top": "50px" });
-    messageh2.html("No posts yet for this age and domain, navigate <a href='/cms'>here</a> in order to create a new post.");
+    messageh2.html("No posts yet for this age and domain, navigate <a href='/ams'>here</a> in order to create a new post.");
     blogContainer.append(messageh2);
   }
 

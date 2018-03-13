@@ -9,7 +9,7 @@ module.exports = function(app) {
   app.get("/", function(req, res) {
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.redirect("/blog");
+      res.redirect("/daply");
     }
     res.sendFile(path.join(__dirname, "../public/login.html"));
   });
@@ -17,7 +17,7 @@ module.exports = function(app) {
   app.get("/signup", function(req, res) {
     // If the user already has an account send them to the members page
     if (req.user) {
-      res.redirect("/blog");
+      res.redirect("/daply");
     }
     res.sendFile(path.join(__dirname, "../public/signup.html"));
   });
@@ -33,17 +33,17 @@ module.exports = function(app) {
 // ];
   // Here we've add our isAuthenticated middleware to this route.
   // If a user who is not logged in tries to access this route they will be redirected to the signup page
-  app.get("/blog", isAuthenticated, function(req, res) {
+  app.get("/daply", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/blog.html"));
   // res.render("index", lunches[0]);
 
   });
 
-  app.get("/cms", isAuthenticated, function(req, res) {
+  app.get("/ams", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/cms.html"));
   });
 
-  app.get("/authors", isAuthenticated, function(req, res) {
+  app.get("/contributors", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/author-manager.html"));
   });  
 
